@@ -4,6 +4,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -30,6 +31,20 @@ public class UsersPageSteps {
         dropdown.selectByVisibleText("Teacher");
         this.driver.findElement(By.cssSelector("button[data-testid='submit']")).click();
     }
+
+    @When("User locates the delete button associated with the username")
+    public void user_locates_the_delete_button_associated_with_the_username() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebElement deleteButton = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//tr[td[contains(text(), 'testUsername')]]//button")
+        ));
+        wait.until(ExpectedConditions.elementToBeClickable(deleteButton));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", deleteButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", deleteButton);
+    }
+
 
     @Then("verifies that the alert title is {string}")
     public void verifies_that_the_alert_title_is(String expectedTitle) {
