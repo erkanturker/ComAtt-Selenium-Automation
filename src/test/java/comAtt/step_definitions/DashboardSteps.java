@@ -1,5 +1,6 @@
 package comAtt.step_definitions;
 
+import comAtt.Utils.WebElementUtils;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -31,4 +32,11 @@ public class DashboardSteps {
         System.out.println("Teacher Stats Card is present.");
     }
 
+    @Then("User verifies {string} DashboardCard on the DashboardPage")
+    public void userVerifiesDashboardCardOnTheDashboardPage(String cartTitle) {
+
+        WebElement statCard = WebElementUtils.waitForElementToBeVisible(driver,By.xpath("//div[contains(@class,'flex-column col-6')]//div[contains(text(),'"+cartTitle+"')]"));
+        Assert.assertTrue(cartTitle+"Stats Card is not present",statCard.isDisplayed());
+        System.out.println(statCard.getText());
+    }
 }

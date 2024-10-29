@@ -1,6 +1,12 @@
 Feature: Dashboard Page
 
-  Scenario: User verifies Dashboard Page
+  Scenario Outline: User verifies Dashboard Page
     Given User logs in to the system
     Then  User verifies the dashboard title is "Dashboard"
-    Then User verifies Teacher DashboardCard
+    Then User verifies "<role>" DashboardCard on the DashboardPage
+
+    Examples:
+      | role   |
+      | Teacher|
+      | Students  |
+    | By Terms          |
